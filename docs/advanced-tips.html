@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高级技巧 - Gemini-CLI 使用教程</title>
+    <meta name="description" content="Gemini-CLI 高级技巧与工作流，提升开发效率">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dark-theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../index.html">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 2L20 12L30 14L22 20L24 30L16 24L8 30L10 20L2 14L12 12L16 2Z"
+                                fill="url(#gemini-gradient)" />
+                            <defs>
+                                <linearGradient id="gemini-gradient" x1="2" y1="2" x2="30" y2="30"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4285F4" />
+                                    <stop offset="1" stop-color="#34A853" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="logo-text">Gemini-CLI</span>
+                    </a>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="搜索文档..." aria-label="搜索文档">
+                    <button class="search-button" aria-label="搜索">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                                stroke="#e4e4e4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+                <nav class="nav-links">
+                    <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener noreferrer"
+                        aria-label="GitHub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 0C5.37 0 0 5.37 0 12C0 17.31 3.435 21.795 8.205 23.385C8.805 23.49 9.03 23.13 9.03 22.815C9.03 22.53 9.015 21.585 9.015 20.58C6 21.135 5.22 19.845 4.98 19.17C4.845 18.825 4.26 17.76 3.75 17.475C3.33 17.25 2.73 16.695 3.735 16.68C4.68 16.665 5.355 17.55 5.58 17.91C6.66 19.725 8.385 19.215 9.075 18.9C9.18 18.12 9.495 17.595 9.84 17.295C7.17 16.995 4.38 15.96 4.38 11.37C4.38 10.065 4.845 8.985 5.61 8.145C5.49 7.845 5.07 6.615 5.73 4.965C5.73 4.965 6.735 4.65 9.03 6.195C10.005 5.925 11.01 5.79 12.015 5.79C13.02 5.79 14.025 5.925 15.000 6.195C17.295 4.65 18.3 4.965 18.3 4.965C18.96 6.615 18.54 7.845 18.42 8.145C19.185 8.985 19.65 10.05 19.65 11.37C19.65 15.975 16.845 16.995 14.16 17.295C14.595 17.67 14.97 18.39 14.97 19.515C14.97 21.12 14.955 22.41 14.955 22.815C14.955 23.13 15.18 23.505 15.795 23.385C20.565 21.795 24 17.31 24 12C24 5.37 18.63 0 12 0Z"
+                                fill="#e4e4e4" />
+                        </svg>
+                    </a>
+                </nav>
+                <button class="menu-toggle" aria-label="打开菜单" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="getting-started.html" class="nav-link">入门指南</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="core-interactions.html" class="nav-link">核心交互模式</a>
+                    </li>
+                    <li class="nav-item has-children">
+                        <a href="slash-commands.html" class="nav-link">斜杠命令详解</a>
+                        <ul class="sub-nav">
+                            <li class="sub-nav-item"><a href="slash-commands.html#session"
+                                    class="sub-nav-link">会话与历史管理</a></li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#context"
+                                    class="sub-nav-link">上下文与记忆管理</a></li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#tools" class="sub-nav-link">工具与集成</a>
+                            </li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#config" class="sub-nav-link">配置与信息</a>
+                            </li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#modes"
+                                    class="sub-nav-link">特殊模式与切换</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="advanced-tips.html" class="nav-link active">高级技巧</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="customization.html" class="nav-link">深度自定义</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html" class="nav-link">常见问题</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="content">
+            <h1>第四部分：高级技巧与工作流</h1>
+
+            <section id="debugging">
+                <h2>1. 代码调试工作流</h2>
+                <p>Gemini-CLI 可以成为您代码调试的强大助手，通过结合多种交互模式形成高效的工作流：</p>
+
+                <div class="code-block-terminal">
+                    <div class="code-block-header">
+                        <div class="terminal-dots">
+                            <span class="terminal-dot close"></span>
+                            <span class="terminal-dot minimize"></span>
+                            <span class="terminal-dot maximize"></span>
+                        </div>
+                        <div class="terminal-title">terminal</div>
+                    </div>
+                    <pre><code># 1. 使用 @ 命令载入问题代码
+@/path/to/file.py
+
+# 2. 提问分析代码问题
+分析这段代码可能出现的 IndexError 异常，并给出修复建议。
+
+# 3. 使用 ! 命令运行相关测试
+!pytest tests/
+
+# 4. 让 Gemini 直接生成修复后的代码
+请根据你的分析，生成修复后的代码。
+
+# 5. 使用 /copy 粘贴修复后的代码
+/copy</code></pre>
+                    <button class="copy-button" aria-label="复制代码">Copy</button>
+                </div>
+
+                <p>通过这种方式，您可以快速定位问题、获得修复建议并直接应用修复。</p>
+            </section>
+
+            <section id="documentation">
+                <h2>2. 自动化文档生成</h2>
+                <p>Gemini-CLI 可以帮助您自动生成项目文档，节省大量时间：</p>
+
+                <div class="code-block-terminal">
+                    <div class="code-block-header">
+                        <div class="terminal-dots">
+                            <span class="terminal-dot close"></span>
+                            <span class="terminal-dot minimize"></span>
+                            <span class="terminal-dot maximize"></span>
+                        </div>
+                        <div class="terminal-title">terminal</div>
+                    </div>
+                    <pre><code># 1. 在项目根目录创建 GEMINI.md，写入指令
+echo '所有文档需为 Markdown 格式，包含代码示例。' > GEMINI.md
+
+# 2. 运行 /memory refresh 加载指令
+/memory refresh
+
+# 3. 提问生成 API 文档
+请为 @./src/ 目录下的所有模块生成 API 文档。</code></pre>
+                    <button class="copy-button" aria-label="复制代码">Copy</button>
+                </div>
+
+                <p>Gemini-CLI 会根据您的代码和指令自动生成结构化的文档。</p>
+            </section>
+
+            <section id="context-management">
+                <h2>3. 高级上下文管理</h2>
+                <p>有效管理上下文可以帮助 Gemini-CLI 更好地理解您的需求：</p>
+
+                <div class="command-card">
+                    <h3>使用 /memory 管理长期记忆</h3>
+                    <p>通过 GEMINI.md 文件，您可以为 Gemini-CLI 提供项目的长期记忆：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code># 在 GEMINI.md 中定义项目规范
+项目编码规范:
+- 使用 4 个空格缩进
+- 函数名使用 snake_case
+- 类名使用 PascalCase
+- 所有函数都需要文档字符串</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+
+                    <p>然后使用 <code>/memory refresh</code> 命令让 Gemini-CLI 加载这些规范。</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>使用 /context 调试上下文</h3>
+                    <p>当 Gemini-CLI 的回答不符合预期时，可以使用 <code>/context show</code> 查看实际发送给模型的上下文：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/context show</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+
+                    <p>这可以帮助您理解为什么模型会给出特定的回答，并调整您的提示或上下文。</p>
+                </div>
+            </section>
+
+            <section id="session-management">
+                <h2>4. 会话管理技巧</h2>
+                <p>合理管理会话可以提高工作效率：</p>
+
+                <div class="command-card">
+                    <h3>保存和恢复会话</h3>
+                    <p>对于复杂的任务，您可以保存当前会话并在稍后恢复：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code># 保存当前会话
+/chat save complex-task
+
+# 退出并稍后恢复
+/chat resume complex-task</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>使用 /compress 优化长会话</h3>
+                    <p>当会话变得很长时，可以使用 <code>/compress</code> 命令压缩历史记录：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/compress</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+
+                    <p>这会将长对话历史压缩成简洁的摘要，节省 Token 并提高响应速度。</p>
+                </div>
+            </section>
+
+            <section id="tool-integration">
+                <h2>5. 工具集成技巧</h2>
+                <p>充分利用 Gemini-CLI 的工具集可以极大提升工作效率：</p>
+
+                <div class="command-card">
+                    <h3>使用 /tools 查看可用工具</h3>
+                    <p>了解当前会话中可用的工具及其状态：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/tools</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>使用 /yolo 模式加速工作流</h3>
+                    <p>在安全的环境中，可以启用 /yolo 模式来自动批准工具执行：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/yolo</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+
+                    <div class="warning">
+                        <p><strong>警告：</strong>仅在您完全信任当前任务和环境时使用 /yolo 模式。</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 右侧目录导航 -->
+        <aside class="toc">
+            <div class="toc-content">
+                <h3>目录</h3>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#debugging">代码调试工作流</a></li>
+                        <li><a href="#documentation">自动化文档生成</a></li>
+                        <li><a href="#context-management">高级上下文管理</a></li>
+                        <li><a href="#session-management">会话管理技巧</a></li>
+                        <li><a href="#tool-integration">工具集成技巧</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 快速参考面板 -->
+    <div class="quick-reference-panel" id="quick-reference-panel">
+        <div class="panel-header">
+            <h3>斜杠命令速查</h3>
+            <button class="close-panel" aria-label="关闭">&times;</button>
+        </div>
+        <div class="panel-content">
+            <div class="command-search">
+                <input type="text" placeholder="搜索命令..." aria-label="搜索命令">
+            </div>
+            <div class="command-categories">
+                <div class="category">
+                    <h4>会话与历史管理</h4>
+                    <ul>
+                        <li><code>/chat save <tag></code> - 保存当前完整的对话状态</li>
+                        <li><code>/chat resume <tag></code> - 恢复一个之前保存的对话</li>
+                        <li><code>/chat list</code> - 列出所有已保存的会话标签</li>
+                        <li><code>/chat clear</code> - 清空当前对话的历史记录</li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <h4>上下文与记忆管理</h4>
+                    <ul>
+                        <li><code>/memory show</code> - 显示当前所有已加载的 GEMINI.md 文件内容</li>
+                        <li><code>/memory refresh</code> - 重新加载所有记忆文件</li>
+                        <li><code>/memory add "<text>"</code> - 临时向当前会话的记忆中添加文本指令</li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <h4>工具与集成</h4>
+                    <ul>
+                        <li><code>/tools</code> - 列出当前会话所有可用的工具及其状态</li>
+                        <li><code>/extensions</code> - 列出当前活动的扩展</li>
+                        <li><code>/init</code> - 分析当前项目并创建一个量身定制的 GEMINI.md 文件</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 浮动按钮 -->
+    <button class="floating-button" id="quick-reference-toggle" aria-label="打开命令速查">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M9 12H15M12 9V15M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/terminal.js"></script>
+    <script src="../js/commands.js"></script>
+</body>
+
+</html>

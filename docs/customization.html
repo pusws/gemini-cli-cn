@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度自定义 - Gemini-CLI 使用教程</title>
+    <meta name="description" content="Gemini-CLI 深度自定义指南，配置 settings.json 和创建自定义斜杠命令">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dark-theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../index.html">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 2L20 12L30 14L22 20L24 30L16 24L8 30L10 20L2 14L12 12L16 2Z"
+                                fill="url(#gemini-gradient)" />
+                            <defs>
+                                <linearGradient id="gemini-gradient" x1="2" y1="2" x2="30" y2="30"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4285F4" />
+                                    <stop offset="1" stop-color="#34A853" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="logo-text">Gemini-CLI</span>
+                    </a>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="搜索文档..." aria-label="搜索文档">
+                    <button class="search-button" aria-label="搜索">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                                stroke="#e4e4e4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+                <nav class="nav-links">
+                    <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener noreferrer"
+                        aria-label="GitHub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 0C5.37 0 0 5.37 0 12C0 17.31 3.435 21.795 8.205 23.385C8.805 23.49 9.03 23.13 9.03 22.815C9.03 22.53 9.015 21.585 9.015 20.58C6 21.135 5.22 19.845 4.98 19.17C4.845 18.825 4.26 17.76 3.75 17.475C3.33 17.25 2.73 16.695 3.735 16.68C4.68 16.665 5.355 17.55 5.58 17.91C6.66 19.725 8.385 19.215 9.075 18.9C9.18 18.12 9.495 17.595 9.84 17.295C7.17 16.995 4.38 15.96 4.38 11.37C4.38 10.065 4.845 8.985 5.61 8.145C5.49 7.845 5.07 6.615 5.73 4.965C5.73 4.965 6.735 4.65 9.03 6.195C10.005 5.925 11.01 5.79 12.015 5.79C13.02 5.79 14.025 5.925 15.000 6.195C17.295 4.65 18.3 4.965 18.3 4.965C18.96 6.615 18.54 7.845 18.42 8.145C19.185 8.985 19.65 10.05 19.65 11.37C19.65 15.975 16.845 16.995 14.16 17.295C14.595 17.67 14.97 18.39 14.97 19.515C14.97 21.12 14.955 22.41 14.955 22.815C14.955 23.13 15.18 23.505 15.795 23.385C20.565 21.795 24 17.31 24 12C24 5.37 18.63 0 12 0Z"
+                                fill="#e4e4e4" />
+                        </svg>
+                    </a>
+                </nav>
+                <button class="menu-toggle" aria-label="打开菜单" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="getting-started.html" class="nav-link">入门指南</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="core-interactions.html" class="nav-link">核心交互模式</a>
+                    </li>
+                    <li class="nav-item has-children">
+                        <a href="slash-commands.html" class="nav-link">斜杠命令详解</a>
+                        <ul class="sub-nav">
+                            <li class="sub-nav-item"><a href="slash-commands.html#session"
+                                    class="sub-nav-link">会话与历史管理</a></li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#context"
+                                    class="sub-nav-link">上下文与记忆管理</a></li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#tools" class="sub-nav-link">工具与集成</a>
+                            </li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#config" class="sub-nav-link">配置与信息</a>
+                            </li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#modes"
+                                    class="sub-nav-link">特殊模式与切换</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="advanced-tips.html" class="nav-link">高级技巧</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="customization.html" class="nav-link active">深度自定义</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html" class="nav-link">常见问题</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="content">
+            <h1>第五部分：深度自定义</h1>
+
+            <section id="settings">
+                <h2>1. 配置 settings.json</h2>
+                <p>Gemini-CLI 的行为可以通过 settings.json 文件进行深度定制：</p>
+
+                <div class="command-card">
+                    <h3>运行 /settings 找到并打开配置文件</h3>
+                    <p>使用 <code>/settings</code> 命令可以找到配置文件的位置并打开它：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/settings</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>修改默认模型</h3>
+                    <p>您可以指定要使用的 Gemini 模型：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">settings.json</div>
+                        </div>
+                        <pre><code>{
+  "model": "gemini-1.5-pro-latest"
+}</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>调整创造性</h3>
+                    <p>通过调整 temperature 参数来控制模型的创造性：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">settings.json</div>
+                        </div>
+                        <pre><code>{
+  "temperature": 0.8
+}</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+
+                    <p>temperature 值越高，模型的创造性越强，但可能降低准确性。</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>禁用危险工具</h3>
+                    <p>为了安全起见，您可以禁用某些危险工具：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">settings.json</div>
+                        </div>
+                        <pre><code>{
+  "tools": {
+    "shell": {
+      "execute": false
+    }
+  }
+}</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+
+                    <p>这将禁用 shell 工具的执行功能，防止意外执行危险命令。</p>
+                </div>
+            </section>
+
+            <section id="custom-commands">
+                <h2>2. 创建自定义斜杠命令</h2>
+                <p>Gemini-CLI 允许您创建自定义斜杠命令来扩展其功能：</p>
+
+                <div class="command-card">
+                    <h3>找到命令目录</h3>
+                    <p>首先找到您的命令目录（通常是 <code>~/.gemini/commands</code>）：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>ls ~/.gemini/commands</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>创建可执行脚本文件</h3>
+                    <p>在该目录下创建一个名为 deploy 的可执行脚本文件（例如 Bash 脚本）：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">deploy</div>
+                        </div>
+                        <pre><code>#!/bin/bash
+echo "🚀 开始部署项目..."
+# 在此添加您的部署命令，例如：
+# gcloud app deploy
+echo "✅ 部署完成！"</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>赋予执行权限</h3>
+                    <p>使用 chmod 命令赋予脚本执行权限：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>chmod +x ~/.gemini/commands/deploy</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>重启并使用自定义命令</h3>
+                    <p>重启 Gemini-CLI 后，您就可以直接运行 <code>/deploy</code> 了：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/deploy</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="memory-customization">
+                <h2>3. 自定义记忆文件</h2>
+                <p>GEMINI.md 文件是 Gemini-CLI 的长期记忆，您可以自定义其内容：</p>
+
+                <div class="command-card">
+                    <h3>项目规范示例</h3>
+                    <p>在 GEMINI.md 中定义项目的编码规范和风格：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">GEMINI.md</div>
+                        </div>
+                        <pre><code># 项目规范
+
+## 编码风格
+- 使用 4 个空格缩进
+- 函数名使用 snake_case
+- 类名使用 PascalCase
+- 所有函数都需要文档字符串
+
+## 技术栈
+- 前端: React, TypeScript
+- 后端: Node.js, Express
+- 数据库: MongoDB
+
+## API 设计原则
+- RESTful 风格
+- 使用 JWT 进行身份验证
+- 错误响应格式统一</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>刷新记忆</h3>
+                    <p>修改 GEMINI.md 后，使用 <code>/memory refresh</code> 命令使更改生效：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/memory refresh</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="theme-customization">
+                <h2>4. 主题自定义</h2>
+                <p>您可以自定义 Gemini-CLI 的外观主题：</p>
+
+                <div class="command-card">
+                    <h3>使用 /theme 命令</h3>
+                    <p>使用 <code>/theme</code> 命令可以更改 CLI 界面的颜色主题：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/theme</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>自定义 CSS</h3>
+                    <p>对于更高级的自定义，您可以创建自定义 CSS 文件来修改外观：</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">custom-theme.css</div>
+                        </div>
+                        <pre><code>/* 自定义主题 */
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --accent-color: #4285F4;
+  --text-primary: #e4e4e4;
+}</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 右侧目录导航 -->
+        <aside class="toc">
+            <div class="toc-content">
+                <h3>目录</h3>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#settings">配置 settings.json</a></li>
+                        <li><a href="#custom-commands">创建自定义斜杠命令</a></li>
+                        <li><a href="#memory-customization">自定义记忆文件</a></li>
+                        <li><a href="#theme-customization">主题自定义</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 快速参考面板 -->
+    <div class="quick-reference-panel" id="quick-reference-panel">
+        <div class="panel-header">
+            <h3>斜杠命令速查</h3>
+            <button class="close-panel" aria-label="关闭">&times;</button>
+        </div>
+        <div class="panel-content">
+            <div class="command-search">
+                <input type="text" placeholder="搜索命令..." aria-label="搜索命令">
+            </div>
+            <div class="command-categories">
+                <div class="category">
+                    <h4>会话与历史管理</h4>
+                    <ul>
+                        <li><code>/chat save <tag></code> - 保存当前完整的对话状态</li>
+                        <li><code>/chat resume <tag></code> - 恢复一个之前保存的对话</li>
+                        <li><code>/chat list</code> - 列出所有已保存的会话标签</li>
+                        <li><code>/chat clear</code> - 清空当前对话的历史记录</li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <h4>上下文与记忆管理</h4>
+                    <ul>
+                        <li><code>/memory show</code> - 显示当前所有已加载的 GEMINI.md 文件内容</li>
+                        <li><code>/memory refresh</code> - 重新加载所有记忆文件</li>
+                        <li><code>/memory add "<text>"</code> - 临时向当前会话的记忆中添加文本指令</li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <h4>工具与集成</h4>
+                    <ul>
+                        <li><code>/tools</code> - 列出当前会话所有可用的工具及其状态</li>
+                        <li><code>/extensions</code> - 列出当前活动的扩展</li>
+                        <li><code>/init</code> - 分析当前项目并创建一个量身定制的 GEMINI.md 文件</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 浮动按钮 -->
+    <button class="floating-button" id="quick-reference-toggle" aria-label="打开命令速查">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M9 12H15M12 9V15M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/terminal.js"></script>
+    <script src="../js/commands.js"></script>
+</body>
+
+</html>

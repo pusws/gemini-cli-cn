@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>斜杠命令详解 - Gemini-CLI 使用教程</title>
+    <meta name="description" content="Gemini-CLI 斜杠命令终极解析，详细剖析每个命令的功能和用法">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dark-theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../index.html">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 2L20 12L30 14L22 20L24 30L16 24L8 30L10 20L2 14L12 12L16 2Z"
+                                fill="url(#gemini-gradient)" />
+                            <defs>
+                                <linearGradient id="gemini-gradient" x1="2" y1="2" x2="30" y2="30"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4285F4" />
+                                    <stop offset="1" stop-color="#34A853" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="logo-text">Gemini-CLI</span>
+                    </a>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="搜索文档..." aria-label="搜索文档">
+                    <button class="search-button" aria-label="搜索">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                                stroke="#e4e4e4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+                <nav class="nav-links">
+                    <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener noreferrer"
+                        aria-label="GitHub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 0C5.37 0 0 5.37 0 12C0 17.31 3.435 21.795 8.205 23.385C8.805 23.49 9.03 23.13 9.03 22.815C9.03 22.53 9.015 21.585 9.015 20.58C6 21.135 5.22 19.845 4.98 19.17C4.845 18.825 4.26 17.76 3.75 17.475C3.33 17.25 2.73 16.695 3.735 16.68C4.68 16.665 5.355 17.55 5.58 17.91C6.66 19.725 8.385 19.215 9.075 18.9C9.18 18.12 9.495 17.595 9.84 17.295C7.17 16.995 4.38 15.96 4.38 11.37C4.38 10.065 4.845 8.985 5.61 8.145C5.49 7.845 5.07 6.615 5.73 4.965C5.73 4.965 6.735 4.65 9.03 6.195C10.005 5.925 11.01 5.79 12.015 5.79C13.02 5.79 14.025 5.925 15.000 6.195C17.295 4.65 18.3 4.965 18.3 4.965C18.96 6.615 18.54 7.845 18.42 8.145C19.185 8.985 19.65 10.05 19.65 11.37C19.65 15.975 16.845 16.995 14.16 17.295C14.595 17.67 14.97 18.39 14.97 19.515C14.97 21.12 14.955 22.41 14.955 22.815C14.955 23.13 15.18 23.505 15.795 23.385C20.565 21.795 24 17.31 24 12C24 5.37 18.63 0 12 0Z"
+                                fill="#e4e4e4" />
+                        </svg>
+                    </a>
+                </nav>
+                <button class="menu-toggle" aria-label="打开菜单" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="getting-started.html" class="nav-link">入门指南</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="core-interactions.html" class="nav-link">核心交互模式</a>
+                    </li>
+                    <li class="nav-item has-children">
+                        <a href="slash-commands.html" class="nav-link active">斜杠命令详解</a>
+                        <ul class="sub-nav">
+                            <li class="sub-nav-item"><a href="slash-commands.html#session"
+                                    class="sub-nav-link">会话与历史管理</a></li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#context"
+                                    class="sub-nav-link">上下文与记忆管理</a></li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#tools" class="sub-nav-link">工具与集成</a>
+                            </li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#config" class="sub-nav-link">配置与信息</a>
+                            </li>
+                            <li class="sub-nav-item"><a href="slash-commands.html#modes"
+                                    class="sub-nav-link">特殊模式与切换</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="advanced-tips.html" class="nav-link">高级技巧</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="customization.html" class="nav-link">深度自定义</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html" class="nav-link">常见问题</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="content">
+            <h1>第三部分：斜杠(/)命令终极解析</h1>
+
+            <p>斜杠 (/) 命令是控制和管理 Gemini-CLI 的核心。下面是对每个命令的详细剖析。</p>
+
+            <section id="session">
+                <h2>一、 会话与历史管理 (Session & History)</h2>
+
+                <div class="command-card">
+                    <h3>/chat</h3>
+                    <p>管理对话会话的生命周期。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/chat save <tag></code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                    <p>保存当前完整的对话状态。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/chat resume <tag></code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                    <p>恢复一个之前保存的对话。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/chat list</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                    <p>列出所有已保存的会话标签。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/chat clear</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                    <p>清空当前对话的历史记录。</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>/history</h3>
+                    <p>查看当前会话的详细历史记录。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/history</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/compress</h3>
+                    <p>将当前冗长的对话历史压缩成一个简洁的摘要，以节省 Token。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/compress</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/clear</h3>
+                    <p>清空终端屏幕（视觉操作，不影响会话数据）。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/clear</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/copy</h3>
+                    <p>将 Gemini 的上一个回答完整地复制到您的系统剪贴板中。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/copy</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/restore</h3>
+                    <p>撤销由工具对项目所做的更改（需在启动时使用 --checkpointing 标志）。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/restore</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/quit 或 /exit</h3>
+                    <p>退出 Gemini-CLI 交互式会话。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/quit</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="context">
+                <h2>二、 上下文与记忆管理 (Context & Memory)</h2>
+
+                <div class="command-card">
+                    <h3>/memory</h3>
+                    <p>管理从 GEMINI.md 文件中加载的长期记忆。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/memory show</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                    <p>显示当前所有已加载的 GEMINI.md 文件内容。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/memory refresh</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                    <p>重新加载所有记忆文件，让更改立即生效。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/memory add "<text>"</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                    <p>临时向当前会话的记忆中添加一段文本指令。</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>/context</h3>
+                    <p>查看当前完整的上下文。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/context</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/context show</h3>
+                    <p>这是一个强大的调试工具，它会显示即将发送给模型的所有信息。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/context show</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/directory</h3>
+                    <p>管理工作区目录。与 /path 类似，用于指定和切换 Gemini-CLI 的工作环境。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/directory</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tools">
+                <h2>三、 工具与集成 (Tools & Integrations)</h2>
+
+                <div class="command-card">
+                    <h3>/tools</h3>
+                    <p>列出当前会话所有可用的工具及其状态（启用/禁用）。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/tools</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/extensions</h3>
+                    <p>列出当前活动的扩展。扩展可以为 Gemini-CLI 增加新的功能和工具。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/extensions</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/init</h3>
+                    <p>分析当前项目并创建一个量身定制的 GEMINI.md 文件。这是一个非常有用的命令，它会自动扫描您的代码库，识别技术栈和编码规范，并生成一个初始的记忆文件作为起点。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/init</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/mcp</h3>
+                    <p>管理与模型上下文协议 (MCP) 服务器的连接，用于和 IDE 等外部应用集成。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/mcp</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/ide</h3>
+                    <p>控制与 IDE 的集成功能。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/ide enable</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                    <p>启用集成。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/ide disable</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                    <p>禁用集成。</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>/setup-github</h3>
+                    <p>帮助您在当前的 Git 仓库中配置 Gemini-CLI 的 GitHub Actions 工作流。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/setup-github</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/yolo</h3>
+                    <p>"You Only Look Once" 模式。启用后，工具执行无需手动确认，会自动批准。请谨慎使用。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/yolo</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="config">
+                <h2>四、 配置与信息 (Configuration & Info)</h2>
+
+                <div class="command-card">
+                    <h3>/help 或 /?</h3>
+                    <p>显示所有可用的斜杠命令及其简要说明。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/help</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/about</h3>
+                    <p>显示 Gemini-CLI 的版本号和相关的官方链接。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/about</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/auth</h3>
+                    <p>管理您的身份验证方式。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/auth</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/bug</h3>
+                    <p>引导您报告一个 Bug。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/bug</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/docs</h3>
+                    <p>在您的默认浏览器中打开 Gemini-CLI 的官方完整文档页面。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/docs</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/editor</h3>
+                    <p>设置当 Gemini 需要打开文件时使用的默认命令行编辑器。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/editor</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/feedback</h3>
+                    <p>提供一个快速的渠道来提交关于 Gemini-CLI 使用体验的反馈。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/feedback</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/log</h3>
+                    <p>显示日志文件的路径，或者直接输出最新的日志内容。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/log</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/privacy</h3>
+                    <p>显示隐私政策声明。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/privacy</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/settings</h3>
+                    <p>打开全局 settings.json 配置文件，或者显示其路径。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/settings</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/stats</h3>
+                    <p>显示当前会话的详细统计数据。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/stats</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/theme</h3>
+                    <p>更改 CLI 界面的颜色主题。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/theme</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/terminal-setup</h3>
+                    <p>配置终端快捷键，以支持多行输入（尤其适用于 VS Code 的集成终端）。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/terminal-setup</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="modes">
+                <h2>五、 特殊模式与切换 (Special Modes & Toggles)</h2>
+
+                <div class="command-card">
+                    <h3>/corgi</h3>
+                    <p>切换 Corgi 模式。这是一个有趣的彩蛋功能，开启后可能会在交互中出现一些与柯基犬相关的趣味内容。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/corgi</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/vim</h3>
+                    <p>开启或关闭 Vim 模式。对于 Vim 用户来说，这允许您在输入提示时使用熟悉的 Vim 快捷键进行文本编辑。</p>
+
+                    <div class="code-block-terminal">
+                        <div class="code-block-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot close"></span>
+                                <span class="terminal-dot minimize"></span>
+                                <span class="terminal-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <pre><code>/vim</code></pre>
+                        <button class="copy-button" aria-label="复制代码">Copy</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 右侧目录导航 -->
+        <aside class="toc">
+            <div class="toc-content">
+                <h3>目录</h3>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#session">会话与历史管理</a></li>
+                        <li><a href="#context">上下文与记忆管理</a></li>
+                        <li><a href="#tools">工具与集成</a></li>
+                        <li><a href="#config">配置与信息</a></li>
+                        <li><a href="#modes">特殊模式与切换</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 快速参考面板 -->
+    <div class="quick-reference-panel" id="quick-reference-panel">
+        <div class="panel-header">
+            <h3>斜杠命令速查</h3>
+            <button class="close-panel" aria-label="关闭">&times;</button>
+        </div>
+        <div class="panel-content">
+            <div class="command-search">
+                <input type="text" placeholder="搜索命令..." aria-label="搜索命令">
+            </div>
+            <div class="command-categories">
+                <div class="category">
+                    <h4>会话与历史管理</h4>
+                    <ul>
+                        <li><code>/chat save <tag></code> - 保存当前完整的对话状态</li>
+                        <li><code>/chat resume <tag></code> - 恢复一个之前保存的对话</li>
+                        <li><code>/chat list</code> - 列出所有已保存的会话标签</li>
+                        <li><code>/chat clear</code> - 清空当前对话的历史记录</li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <h4>上下文与记忆管理</h4>
+                    <ul>
+                        <li><code>/memory show</code> - 显示当前所有已加载的 GEMINI.md 文件内容</li>
+                        <li><code>/memory refresh</code> - 重新加载所有记忆文件</li>
+                        <li><code>/memory add "<text>"</code> - 临时向当前会话的记忆中添加文本指令</li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <h4>工具与集成</h4>
+                    <ul>
+                        <li><code>/tools</code> - 列出当前会话所有可用的工具及其状态</li>
+                        <li><code>/extensions</code> - 列出当前活动的扩展</li>
+                        <li><code>/init</code> - 分析当前项目并创建一个量身定制的 GEMINI.md 文件</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 浮动按钮 -->
+    <button class="floating-button" id="quick-reference-toggle" aria-label="打开命令速查">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M9 12H15M12 9V15M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/terminal.js"></script>
+    <script src="../js/commands.js"></script>
+</body>
+
+</html>

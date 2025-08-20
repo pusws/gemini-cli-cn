@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini-CLI 使用教程 - 终端原生 AI 编程伙伴</title>
+    <meta name="description" content="Gemini-CLI 是一个终端原生的 AI 编程伙伴，本教程将引导您从零开始，逐步掌握其全部功能，释放其最大潜力。">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dark-theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 2L20 12L30 14L22 20L24 30L16 24L8 30L10 20L2 14L12 12L16 2Z"
+                                fill="url(#gemini-gradient)" />
+                            <defs>
+                                <linearGradient id="gemini-gradient" x1="2" y1="2" x2="30" y2="30"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4285F4" />
+                                    <stop offset="1" stop-color="#34A853" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="logo-text">Gemini-CLI</span>
+                    </a>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="搜索文档..." aria-label="搜索文档">
+                    <button class="search-button" aria-label="搜索">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                                stroke="#e4e4e4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+                <nav class="nav-links">
+                    <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener noreferrer"
+                        aria-label="GitHub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 0C5.37 0 0 5.37 0 12C0 17.31 3.435 21.795 8.205 23.385C8.805 23.49 9.03 23.13 9.03 22.815C9.03 22.53 9.015 21.585 9.015 20.58C6 21.135 5.22 19.845 4.98 19.17C4.845 18.825 4.26 17.76 3.75 17.475C3.33 17.25 2.73 16.695 3.735 16.68C4.68 16.665 5.355 17.55 5.58 17.91C6.66 19.725 8.385 19.215 9.075 18.9C9.18 18.12 9.495 17.595 9.84 17.295C7.17 16.995 4.38 15.96 4.38 11.37C4.38 10.065 4.845 8.985 5.61 8.145C5.49 7.845 5.07 6.615 5.73 4.965C5.73 4.965 6.735 4.65 9.03 6.195C10.005 5.925 11.01 5.79 12.015 5.79C13.02 5.79 14.025 5.925 15.000 6.195C17.295 4.65 18.3 4.965 18.3 4.965C18.96 6.615 18.54 7.845 18.42 8.145C19.185 8.985 19.65 10.05 19.65 11.37C19.65 15.975 16.845 16.995 14.16 17.295C14.595 17.67 14.97 18.39 14.97 19.515C14.97 21.12 14.955 22.41 14.955 22.815C14.955 23.13 15.18 23.505 15.795 23.385C20.565 21.795 24 17.31 24 12C24 5.37 18.63 0 12 0Z"
+                                fill="#e4e4e4" />
+                        </svg>
+                    </a>
+                </nav>
+                <button class="menu-toggle" aria-label="打开菜单" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="docs/getting-started.html" class="nav-link">入门指南</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="docs/core-interactions.html" class="nav-link">核心交互模式</a>
+                    </li>
+                    <li class="nav-item has-children">
+                        <a href="docs/slash-commands.html" class="nav-link">斜杠命令详解</a>
+                        <ul class="sub-nav">
+                            <li class="sub-nav-item"><a href="docs/slash-commands.html#session"
+                                    class="sub-nav-link">会话与历史管理</a></li>
+                            <li class="sub-nav-item"><a href="docs/slash-commands.html#context"
+                                    class="sub-nav-link">上下文与记忆管理</a></li>
+                            <li class="sub-nav-item"><a href="docs/slash-commands.html#tools"
+                                    class="sub-nav-link">工具与集成</a></li>
+                            <li class="sub-nav-item"><a href="docs/slash-commands.html#config"
+                                    class="sub-nav-link">配置与信息</a></li>
+                            <li class="sub-nav-item"><a href="docs/slash-commands.html#modes"
+                                    class="sub-nav-link">特殊模式与切换</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="docs/advanced-tips.html" class="nav-link">高级技巧</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="docs/customization.html" class="nav-link">深度自定义</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="docs/faq.html" class="nav-link">常见问题</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="content">
+            <section class="hero">
+                <h1>Gemini-CLI 终极使用教程</h1>
+                <p class="subtitle">从入门到精通，释放终端原生 AI 编程伙伴的最大潜力</p>
+                <div class="terminal-simulator">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="dot close"></span>
+                            <span class="dot minimize"></span>
+                            <span class="dot maximize"></span>
+                        </div>
+                        <div class="terminal-title">gemini-cli-demo</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">$ gemini</div>
+                        <div class="terminal-line">Welcome to Gemini-CLI!</div>
+                        <div class="terminal-line">Type <span class="command">/help</span> to see all available
+                            commands.</div>
+                        <div class="terminal-line">Try asking: <span class="command">请帮我用 Python 写一个快速排序算法</span></div>
+                        <div class="terminal-cursor"></div>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="docs/getting-started.html" class="btn btn-primary">开始学习</a>
+                    <a href="https://github.com/google-gemini/gemini-cli" class="btn btn-secondary">GitHub 仓库</a>
+                </div>
+            </section>
+
+            <section class="features">
+                <h2>为什么选择 Gemini-CLI？</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#4285F4" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M2 17L12 22L22 17" stroke="#4285F4" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M2 12L12 17L22 12" stroke="#4285F4" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3>终端原生</h3>
+                        <p>直接生活在您最熟悉的开发环境——终端中，无需切换窗口，实现沉浸式工作流。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                                    stroke="#34A853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12 16V12" stroke="#34A853" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M12 8H12.01" stroke="#34A853" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3>上下文感知</h3>
+                        <p>通过 @ 命令和 GEMINI.md 文件，能深刻理解您的项目结构和编码规范。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21"
+                                    stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3>强大的工具集</h3>
+                        <p>不仅能聊天，还能读写文件、执行命令、搜索网络，像一个真正的助理一样执行任务。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+                                    stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M14 2V8H20" stroke="#EF4444" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M16 13H8" stroke="#EF4444" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M16 17H8" stroke="#EF4444" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M10 9H9H8" stroke="#EF4444" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3>高度可扩展</h3>
+                        <p>支持自定义命令，您可以根据自己的需求，打造专属的自动化工具。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="quick-reference">
+                <h2>斜杠命令速查</h2>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <h3>/chat</h3>
+                        <p>管理对话会话的生命周期</p>
+                    </div>
+                    <div class="command-card">
+                        <h3>/memory</h3>
+                        <p>管理从 GEMINI.md 文件中加载的长期记忆</p>
+                    </div>
+                    <div class="command-card">
+                        <h3>/tools</h3>
+                        <p>列出当前会话所有可用的工具及其状态</p>
+                    </div>
+                    <div class="command-card">
+                        <h3>/help</h3>
+                        <p>显示所有可用的斜杠命令及其简要说明</p>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="docs/slash-commands.html" class="btn btn-outline">查看完整命令列表</a>
+                </div>
+            </section>
+        </main>
+
+        <!-- 右侧目录导航 -->
+        <aside class="toc">
+            <div class="toc-content">
+                <h3>目录</h3>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#intro">欢迎来到 Gemini-CLI</a></li>
+                        <li><a href="#why">为什么选择 Gemini-CLI？</a></li>
+                        <li><a href="#features">核心特性</a></li>
+                        <li><a href="#commands">斜杠命令速查</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 快速参考面板 -->
+    <div class="quick-reference-panel" id="quick-reference-panel">
+        <div class="panel-header">
+            <h3>斜杠命令速查</h3>
+            <button class="close-panel" aria-label="关闭">&times;</button>
+        </div>
+        <div class="panel-content">
+            <div class="command-search">
+                <input type="text" placeholder="搜索命令..." aria-label="搜索命令">
+            </div>
+            <div class="command-categories">
+                <div class="category">
+                    <h4>会话与历史管理</h4>
+                    <ul>
+                        <li><code>/chat save <tag></code> - 保存当前完整的对话状态</li>
+                        <li><code>/chat resume <tag></code> - 恢复一个之前保存的对话</li>
+                        <li><code>/chat list</code> - 列出所有已保存的会话标签</li>
+                        <li><code>/chat clear</code> - 清空当前对话的历史记录</li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <h4>上下文与记忆管理</h4>
+                    <ul>
+                        <li><code>/memory show</code> - 显示当前所有已加载的 GEMINI.md 文件内容</li>
+                        <li><code>/memory refresh</code> - 重新加载所有记忆文件</li>
+                        <li><code>/memory add "<text>"</code> - 临时向当前会话的记忆中添加文本指令</li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <h4>工具与集成</h4>
+                    <ul>
+                        <li><code>/tools</code> - 列出当前会话所有可用的工具及其状态</li>
+                        <li><code>/extensions</code> - 列出当前活动的扩展</li>
+                        <li><code>/init</code> - 分析当前项目并创建一个量身定制的 GEMINI.md 文件</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 浮动按钮 -->
+    <button class="floating-button" id="quick-reference-toggle" aria-label="打开命令速查">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M9 12H15M12 9V15M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+
+    <script src="js/main.js"></script>
+    <script src="js/terminal.js"></script>
+    <script src="js/commands.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,366 @@
+/* 暗色主题样式 */
+
+/* 主色调 */
+:root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #121212;
+    --bg-code: #1e1e1e;
+    --border-color: #2a2a2a;
+    --text-primary: #e4e4e4;
+    --text-secondary: #a0a0a0;
+    --text-tertiary: #888888;
+    
+    /* 强调色 */
+    --accent-blue: #4285F4;
+    --accent-green: #34A853;
+    --accent-yellow: #fbbf24;
+    --accent-red: #ef4444;
+    
+    /* 代码高亮配色 */
+    --code-keyword: #c586c0;
+    --code-function: #dcdcaa;
+    --code-variable: #9cdcfe;
+    --code-string: #ce9178;
+    --code-comment: #6a9955;
+    --code-number: #b5cea8;
+    --code-operator: #d4d4d4;
+    
+    /* 渐变色 */
+    --gradient-primary: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+}
+
+/* 暗色主题代码块 */
+pre, code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    background: var(--bg-code);
+    border-radius: 6px;
+    color: var(--text-primary);
+}
+
+pre {
+    padding: 20px;
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    margin: 20px 0;
+    position: relative;
+}
+
+code {
+    padding: 2px 6px;
+    font-size: 0.95em;
+}
+
+/* 代码高亮 */
+.hljs {
+    background: var(--bg-code);
+    color: var(--text-primary);
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+    color: var(--code-keyword);
+}
+
+.hljs-function,
+.hljs-title {
+    color: var(--code-function);
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attribute {
+    color: var(--code-variable);
+}
+
+.hljs-string,
+.hljs-char,
+.hljs-quote,
+.hljs-symbol,
+.hljs-bullet {
+    color: var(--code-string);
+}
+
+.hljs-comment,
+.hljs-deletion {
+    color: var(--code-comment);
+}
+
+.hljs-number,
+.hljs-regexp,
+.hljs-literal,
+.hljs-link {
+    color: var(--code-number);
+}
+
+.hljs-operator,
+.hljs-punctuation {
+    color: var(--code-operator);
+}
+
+/* 代码块复制按钮 */
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(30, 30, 30, 0.8);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.copy-button:hover {
+    background: var(--bg-code);
+    color: var(--text-primary);
+    border-color: var(--accent-blue);
+}
+
+.copy-button.copied {
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+/* 代码块终端样式 */
+.code-block-terminal {
+    position: relative;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.code-block-terminal pre {
+    background: #000;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding-top: 40px;
+}
+
+.code-block-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: 1px solid #3a3a3a;
+}
+
+.terminal-dots {
+    display: flex;
+}
+
+.terminal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.terminal-dot.close {
+    background: #ff5f56;
+}
+
+.terminal-dot.minimize {
+    background: #ffbd2e;
+}
+
+.terminal-dot.maximize {
+    background: #27c93f;
+}
+
+.terminal-title {
+    flex: 1;
+    text-align: center;
+    color: #a0a0a0;
+    font-size: 0.8rem;
+}
+
+/* 警告和错误提示 */
+.warning {
+    background: rgba(251, 191, 36, 0.1);
+    border-left: 4px solid var(--accent-yellow);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.error {
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 4px solid var(--accent-red);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.info {
+    background: rgba(66, 133, 244, 0.1);
+    border-left: 4px solid var(--accent-blue);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+}
+
+/* 表格样式 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background: var(--bg-secondary);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background: rgba(30, 30, 30, 0.5);
+}
+
+/* 链接样式 */
+a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #6ea1f8;
+    text-decoration: underline;
+}
+
+/* 按钮样式 */
+button {
+    background: var(--bg-code);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+button:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-blue);
+}
+
+/* 输入框样式 */
+input, textarea {
+    background: var(--bg-code);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px 15px;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--accent-blue);
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 高对比度模式 */
+.high-contrast {
+    --bg-primary: #000;
+    --bg-secondary: #000;
+    --bg-tertiary: #000;
+    --bg-code: #000;
+    --border-color: #fff;
+    --text-primary: #fff;
+    --text-secondary: #fff;
+    --text-tertiary: #fff;
+}
+
+/* 字体大小调整 */
+.font-small {
+    font-size: 14px;
+}
+
+.font-medium {
+    font-size: 16px;
+}
+
+.font-large {
+    font-size: 18px;
+}
+
+/* 无障碍访问 */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 焦点样式 */
+*:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* 打印样式 */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    pre, code {
+        background: #f5f5f5;
+        color: black;
+        border: 1px solid #ddd;
+    }
+}
